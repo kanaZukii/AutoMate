@@ -37,6 +37,9 @@ class GUI(QWidget):
         self.hotkey_label = QLabel("Hotkey:")
         self.hotkey_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
+        self.mode_label = QLabel("Mode:")
+        self.mode_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
         self.interval_box = QSpinBox()
         self.interval_box.setRange(1, 10000)
         self.interval_box.setValue(100)
@@ -48,12 +51,15 @@ class GUI(QWidget):
 
         self.hotkey_btn = QPushButton("F6")
         self.mouse_btn = QPushButton("Left")
+        self.mode_btn = QPushButton("Click")
 
         btn_layout = QHBoxLayout()
         btn_layout.addWidget(self.start_btn)
         btn_layout.addWidget(self.stop_btn)
 
         config_layout = QHBoxLayout()
+        config_layout.addWidget(self.mode_label)
+        config_layout.addWidget(self.mode_btn)
         config_layout.addWidget(self.button_label)
         config_layout.addWidget(self.mouse_btn)
         config_layout.addWidget(self.hotkey_label)

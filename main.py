@@ -29,6 +29,12 @@ def main():
         clicker = ClickerThread(interval)
         clicker.status.connect(window.status_label.setText)
         clicker.button = mouseBtn[selected_btn]
+
+        if window.mode_btn.text() == "Hold":
+            clicker.hold_btn = True
+        else:
+            clicker.hold_btn = False
+
         clicker.start()
 
         running = True
@@ -37,6 +43,7 @@ def main():
         window.stop_btn.setEnabled(True)
         window.mouse_btn.setEnabled(False)
         window.hotkey_btn.setEnabled(False)
+        window.mode_btn.setEnabled(False)
 
     def stop_clicking():
         nonlocal running, clicker
@@ -47,6 +54,7 @@ def main():
         if clicker:
             clicker.stop()
             clicker.wait()
+            clicker.hold_btn = False
         
         running = False
 
@@ -54,6 +62,7 @@ def main():
         window.stop_btn.setEnabled(False)
         window.mouse_btn.setEnabled(True)
         window.hotkey_btn.setEnabled(True)
+        window.mode_btn.setEnabled(True)
 
     def toggle_clicker():
         nonlocal running, clicker
@@ -73,10 +82,19 @@ def main():
                 selected_btn = 0
 
             window.mouse_btn.setText(mouseBtn[selected_btn].capitalize())
+    
+    def toggle_mode():
+        if window.mode_btn.text() == "Click":
+            window.mode_btn.setText("Hold")
+            window.interval_box.setEnabled(False)
+        else:
+            window.mode_btn.setText("Click")
+            window.interval_box.setEnabled(True)
 
     window.start_btn.clicked.connect(start_clicking)
     window.stop_btn.clicked.connect(stop_clicking)
     window.mouse_btn.clicked.connect(toggle_mouseBtn)
+    window.mode_btn.clicked.connect(toggle_mode)
 
     bridge = HotkeyBridge()
     bridge.toggle.connect(toggle_clicker)
