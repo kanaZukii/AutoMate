@@ -19,7 +19,6 @@ class GUI(QWidget):
         )
         self.status_label.setStyleSheet("""
             QLabel {
-                color: #dddddd;
                 font-size: 24px;
                 font-weight: bold;
             }
