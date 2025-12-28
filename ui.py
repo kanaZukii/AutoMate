@@ -7,6 +7,8 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt
 
 class GUI(QWidget):
+    selected_mouseBtn = "Left"
+
     def __init__(self):
         super().__init__()
 
@@ -29,8 +31,11 @@ class GUI(QWidget):
             Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter
         )
 
-        self.hotkey_label = QLabel("Toggle Hotkey:")
-        self.hotkey_label.setAlignment(Qt.AlignmentFlag.AlignBottom)
+        self.button_label = QLabel("Button:")
+        self.button_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.hotkey_label = QLabel("Hotkey:")
+        self.hotkey_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.interval_box = QSpinBox()
         self.interval_box.setRange(1, 10000)
@@ -42,20 +47,23 @@ class GUI(QWidget):
         self.stop_btn.setEnabled(False)
 
         self.hotkey_btn = QPushButton("F6")
+        self.mouse_btn = QPushButton("Left")
 
         btn_layout = QHBoxLayout()
         btn_layout.addWidget(self.start_btn)
         btn_layout.addWidget(self.stop_btn)
 
-        hotkey_layout = QHBoxLayout()
-        hotkey_layout.addWidget(self.hotkey_label)
-        hotkey_layout.addWidget(self.hotkey_btn)
+        config_layout = QHBoxLayout()
+        config_layout.addWidget(self.button_label)
+        config_layout.addWidget(self.mouse_btn)
+        config_layout.addWidget(self.hotkey_label)
+        config_layout.addWidget(self.hotkey_btn)
 
         layout = QVBoxLayout()
         layout.addWidget(self.status_label)
         layout.addWidget(self.interval_label)
         layout.addWidget(self.interval_box)
         layout.addLayout(btn_layout)
-        layout.addLayout(hotkey_layout)
+        layout.addLayout(config_layout)
 
         self.setLayout(layout)

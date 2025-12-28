@@ -10,13 +10,14 @@ class ClickerThread(QThread):
         super().__init__()
         self.interval = interval_ms / 1000.0
         self.running = False
+        self.button = "left"
 
     def run(self):
         self.running = True
         self.status.emit("Clicker ON")
 
         while self.running:
-            pyautogui.click()
+            pyautogui.click(button=self.button)
             time.sleep(self.interval)
 
         self.status.emit("Clicker OFF")
